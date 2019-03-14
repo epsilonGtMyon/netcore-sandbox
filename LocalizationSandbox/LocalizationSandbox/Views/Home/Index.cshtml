@@ -1,0 +1,51 @@
+﻿@section styles {
+}
+
+@section scripts {
+}
+
+@Html.AntiForgeryToken()
+<div id="app">
+    <div>
+        言語変更
+        <button id="ja">日本語</button>
+        <button id="en">英語</button>
+    </div>
+    <div>
+        メッセージ取得
+        <button id="mes">メッセージ</button>
+    </div>
+</div>
+<script type="text/javascript">
+    async function changeLang(lang) {
+        const param = new URLSearchParams();
+        param.append('lang', lang)
+        param.append('__RequestVerificationToken', document.querySelector('input[name=__RequestVerificationToken]').value);
+
+        const response = await fetch("/Home/ChangeLanguage", {
+            method: "POST",
+            credentials:'include',
+            headers: {
+            },
+            body: param,
+        });
+
+        if (response.ok) {
+            alert('変更');
+        } else {
+            alert('変更失敗');
+        }
+    }
+
+    document.querySelector("#ja").addEventListener('click', () => changeLang('ja-JP'))
+    document.querySelector("#en").addEventListener('click', () => changeLang('en-US'))
+
+    document.querySelector("#mes").addEventListener('click', async () => {
+        const response = await fetch("/Home/GetMessage")
+        if (response.ok) {
+            alert(await response.text())
+        } else {
+            alert("失敗")
+        }
+    })
+</script>
