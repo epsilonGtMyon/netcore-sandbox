@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate" />
+    <script type="text/javascript" src="./js/axios.min.js"></script>
+    <script type="text/javascript" src="./js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="do01">Do01</button>
+        <button @click="do02">Do02</button>
+        <button @click="doCookie">DoCookie</button>
+        <button @click="signIn">SignIn</button>
+        <button @click="signOut">SignOut</button>
+    </div>
+    <script>
+        const ax = axios.create({
+            baseURL: '/api/',
+            //X-Requested-With:XMLHttpRequestをつけておくと
+            //サーバー側でajaxリクエストと判断しリダイレクトが必要な場面ではヘッダーに値をセットしてくれるようだ
+            //CookieAuthenticationEvents.IsAjaxRequestを見るとよい
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+
+        new Vue({
+            el: '#app',
+            data() {
+
+            },
+            methods: {
+                async do01() {
+                    const r = await ax.get("/sandbox01/do01")
+                    console.log(r)
+                },
+                async do02() {
+                    const r = await ax.get("/sandbox01/do02")
+                    console.log(r)
+                },
+                async doCookie() {
+                    const r = await ax.post("/sandbox01/do-cookie")
+                    console.log(r)
+                },
+                async signIn() {
+                    const r = await ax.post("/sandbox01/sign-in")
+                    console.log(r)
+                },
+                async signOut() {
+                    const r = await ax.post("/sandbox01/sign-out")
+                    console.log(r)
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
