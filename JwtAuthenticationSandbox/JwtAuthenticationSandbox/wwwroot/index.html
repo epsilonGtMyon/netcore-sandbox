@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate" />
+    <script type="text/javascript" src="./js/axios.min.js"></script>
+    <script type="text/javascript" src="./js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="do01">Do01</button>
+        <button @click="do02">Do02</button>
+        <button @click="genToken">GenToken</button>
+        <div>token:{{token}}</div>
+        <div><a href="https://jwt.ms/" target="_blank" rel="nofollow noopener noreferrer">jwt.ms(トークンの確認)</a></div>
+    </div>
+    <script>
+        const ax = axios.create({
+            baseURL: '/api/',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    token: null,
+                }
+            },
+            methods: {
+                async do01() {
+                    const config = {
+                        headers: this.createHeaders()
+                    }
+                    const r = await ax.get("/sandbox01/do01", config)
+                    console.log(r)
+                },
+                async do02() {
+                    const config = {
+                        headers: this.createHeaders()
+                    }
+                    const r = await ax.get("/sandbox01/do02", config)
+                    console.log(r)
+                },
+                async genToken() {
+                    const config = {
+                        headers: this.createHeaders()
+                    }
+                    const r = await ax.post("/sandbox01/gen-token", {}, config)
+                    console.log(r)
+
+                    this.token = r.data.token;
+                },
+
+                //--------
+                createHeaders() {
+                    const headers = {};
+                    if (this.token != null) {
+                        headers["Authorization"] = `Bearer ${this.token}`;
+                    }
+                    return headers;
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
