@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate" />
+    <script type="text/javascript" src="./js/axios.min.js"></script>
+    <script type="text/javascript" src="./js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            {{message}}
+        </div>
+        <div>
+            <input v-model="myName" />
+            <button @click="hello">Hello</button>
+        </div>
+        <div>
+            <button @click="goodMorning">GoodMorning</button>
+        </div>
+        <div>
+            <button @click="allStrings">AllStrings</button>
+        </div>
+        <div>
+            <select v-model="localeName">
+                <option value="ja-JP">ja-JP</option>
+                <option value="en-US">en-US</option>
+            </select>
+            <button @click="changeLocale">ChangeLocale</button>
+        </div>
+
+    </div>
+    <script>
+        const ax = axios.create({
+            baseURL: '/api/',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    message: "",
+                    myName: "",
+                    localeName: "ja-JP",
+                }
+            },
+            methods: {
+                async hello() {
+                    const config = {
+                        params: {
+                            myName: this.myName
+                        }
+                    }
+                    const r = await ax.get("/sandbox01/hello", config)
+                    console.log(r);
+                    this.message = r.data;
+                },
+                async goodMorning() {
+                    const config = {
+                    }
+                    const r = await ax.get("/sandbox01/good-morning", config)
+                    console.log(r);
+                    this.message = r.data;
+                },
+                async allStrings() {
+                    const config = {
+                    }
+                    const r = await ax.get("/sandbox01/all-strings", config)
+                    console.log(r);
+                    this.message = r.data;
+                },
+                async changeLocale() {
+                    const d = {
+                        localeName: this.localeName
+                    }
+                    const config = {
+                    }
+                    const r = await ax.post("/sandbox01/change-locale", d, config)
+                    console.log(r)
+                },
+
+                //--------
+            }
+        })
+
+    </script>
+</body>
+
+</html>
