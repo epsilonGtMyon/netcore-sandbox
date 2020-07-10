@@ -27,8 +27,8 @@ namespace MyLocalizationUsage.MyLocalization
             string sql = @"
 SELECT
    key_name as Key
-  ,ja_jp    as JaJp
-  ,en_us    as EnUs
+  ,ja       as Ja
+  ,en       as En
 FROM
    localization_resource
 ORDER BY

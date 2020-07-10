@@ -47,16 +47,12 @@ namespace MyLocalizationUsage
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                var supportedCultures = new[]
-                {
-                    new CultureInfo("ja"),
-                    new CultureInfo("ja-JP"),
-                    new CultureInfo("en-US")
-                };
-
-                options.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
+                string[] supportedCultures = new string[] { "ja", "en" };
+                options
+                    .AddSupportedCultures(supportedCultures)
+                    .AddSupportedUICultures(supportedCultures)
+                    .SetDefaultCulture(supportedCultures[0])
+                    ;
             });
 
         }

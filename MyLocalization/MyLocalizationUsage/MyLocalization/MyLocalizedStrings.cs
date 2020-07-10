@@ -38,10 +38,8 @@ namespace MyLocalizationUsage.MyLocalization
             {
                 switch (currentUICulture.Name)
                 {
-                    case "ja": return record.JaJp;
-                    case "ja-JP": return record.JaJp;
-
-                    case "en-US": return record.EnUs;
+                    case "ja": return record.Ja;
+                    case "en": return record.En;
                 }
             }
             return null;

@@ -4,8 +4,8 @@
     {
         public string Key { get; set; }
 
-        public string JaJp { get; set; }
+        public string Ja { get; set; }
 
-        public string EnUs { get; set; }
+        public string En { get; set; }
     }
 }
