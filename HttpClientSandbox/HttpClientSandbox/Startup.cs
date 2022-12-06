@@ -22,7 +22,6 @@ namespace HttpClientSandbox
 
 			service.AddTransient<Sandbox01>();
 
-			//NLogを使うための設定
 			service.AddLogging(builder =>
 			{
 				builder.SetMinimumLevel(LogLevel.Trace);
